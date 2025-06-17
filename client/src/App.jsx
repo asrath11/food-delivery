@@ -11,13 +11,14 @@ import Index from './pages/Index';
 import { UserAuthProvider } from './hooks/UserProvider';
 import Food from './pages/Food';
 import Login from './pages/Login';
-
+import Cart from './pages/Cart';
 const router = createBrowserRouter(
   createRoutesFromChildren(
     <Route path="/" element={<Layout />}>
       <Route index element={<Index />} />
       <Route path='/food' element={<Food />} />
       <Route path='/login' element={<Login />} />
+      <Route path='/cart' element={<Cart />} />
     </Route>
   )
 );
