@@ -118,3 +118,7 @@
     @apply bg-background text-foreground;
   }
 }
+
+@theme{
+  --color-brand:rgb(161, 128, 114)
+}
