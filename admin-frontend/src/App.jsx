@@ -12,6 +12,8 @@ import { UserAuthProvider } from './hooks/UserProvider';
 import Food from './pages/Food';
 import Login from './pages/Login';
 import Cart from './pages/Cart';
+import Profile from './pages/AdminDashBoard';
+import ProtectedAdminRoute from './components/ProtectedAdminRoute';
 const router = createBrowserRouter(
   createRoutesFromChildren(
     <Route path="/" element={<Layout />}>
@@ -19,15 +21,14 @@ const router = createBrowserRouter(
       <Route path='/food' element={<Food />} />
       <Route path='/login' element={<Login />} />
       <Route path='/cart' element={<Cart />} />
+      <Route path='/admin' element={<ProtectedAdminRoute><Profile /></ProtectedAdminRoute>} />
     </Route>
   )
 );
 
 function App() {
   return (
-    <UserAuthProvider>
       <RouterProvider router={router} />
-    </UserAuthProvider>
   );
 }
 export default App;
