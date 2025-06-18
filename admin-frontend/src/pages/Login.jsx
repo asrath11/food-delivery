@@ -31,7 +31,6 @@ function Login() {
         },
       });
 
-      console.log('Login successful', response.data);
       login(response.data.user);
       navigate('/');
     } catch (error) {
