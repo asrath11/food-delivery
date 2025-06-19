@@ -11,7 +11,7 @@ import { Button } from '../ui/button';
 import { useUser } from '@/hooks/UserProvider';
 function ProfileDropDown() {
   const navigate = useNavigate();
-  const { user } = useUser();
+  const { user, logout } = useUser();
 
   return (
     <DropdownMenu>
@@ -23,10 +23,12 @@ function ProfileDropDown() {
       <DropdownMenuContent>
         {user ? (
           <>
-            <DropdownMenuItem onClick={() => navigate('/profile')}>
-              Profile
+            <DropdownMenuItem onClick={() => navigate('/admin')}>
+            Dash Board
             </DropdownMenuItem>
-            <DropdownMenuItem>logout</DropdownMenuItem>
+            <DropdownMenuItem onClick={logout}>
+            Logout
+            </DropdownMenuItem>
           </>
         ) : (
           <>
