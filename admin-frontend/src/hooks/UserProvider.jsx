@@ -1,20 +1,20 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import { API_URL } from '@/constants/config';
-// Create context
+import { useNavigate } from 'react-router-dom';
+
 const UserContext = createContext();
 
-// Create provider
 export const UserAuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null); // null instead of {}
-  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Example: fetch user on mount
     const fetchUser = async () => {
       try {
-        setLoading(true);
+        setIsLoading(true);
         const res = await axios.get(`${API_URL}/auth/me`, {
           withCredentials: true,
         });
@@ -23,7 +23,7 @@ export const UserAuthProvider = ({ children }) => {
         setError(err.response?.data?.message || 'Something went wrong');
         setUser(null);
       } finally {
-        setLoading(false);
+        setIsLoading(false);
       }
     };
     fetchUser();
@@ -31,15 +31,23 @@ export const UserAuthProvider = ({ children }) => {
 
   const login = (userData) => {
     setUser(userData);
-    setLoading(false);
+    setIsLoading(false);
+  };
+
+  const logout = async () => {
+    await axios.post(`${API_URL}/auth/logout`, {}, {
+      withCredentials: true,
+    });
+    setUser(null);
+    setIsLoading(false);
+    navigate('/');
   };
 
   return (
-    <UserContext.Provider value={{ user, setUser, loading, login }}>
+    <UserContext.Provider value={{ user, setUser, isLoading, login, logout }}>
       {children}
     </UserContext.Provider>
   );
 };
 
-// Custom hook to access user context
 export const useUser = () => useContext(UserContext);

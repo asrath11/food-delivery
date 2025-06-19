@@ -1,8 +1,7 @@
 // src/hooks/useFoodFilter.js
 import { useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
-
-const API_URL = import.meta.env.VITE_API_URL;
+import { ITEMS_URL } from '@/constants/config';
 
 function useFoodFilter() {
   const [foodItems, setFoodItems] = useState([]);
@@ -15,7 +14,7 @@ function useFoodFilter() {
   useEffect(() => {
     const fetchFoodItems = async () => {
       try {
-        const res = await axios.get(`${API_URL}/items`);
+        const res = await axios.get(`${ITEMS_URL}`);
         const rawItems = res.data.item || [];
 
         const mapped = rawItems.map((item) => ({
