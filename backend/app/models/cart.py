@@ -6,13 +6,10 @@ import uuid
 class Cart(db.Model):
     __tablename__ = 'cart'
 
-
-
     id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
-    user_id = Column(String(100), ForeignKey('users.id'), nullable=False)
-    item_id = Column(String(100), ForeignKey('items.id'), nullable=False)
-    quantity = Column(Integer, nullable=False, default=1)
+    user_id = Column(String(100), ForeignKey('users.id', ondelete="CASCADE"), nullable=False)
+    item_id = Column(String(100), ForeignKey('items.id', ondelete="CASCADE"), nullable=False)
+    quantity = Column(Integer, nullable=False)
 
-    # Relationships
-    user = relationship("User", backref="cart_items", lazy=True)
-    item = relationship("Item", backref="in_carts", lazy=True)
+    user = relationship("User", backref="cart_items", lazy=True, passive_deletes=True)
+    item = relationship("Item", backref="in_carts", lazy=True, passive_deletes=True)
