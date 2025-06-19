@@ -24,7 +24,7 @@ def get_cart():
         for cart in cart_items
     ]
 
-    return jsonify({"items": data, "results": len(data)}), 200
+    return jsonify({"cart": data, "results": len(data)}), 200
 
 @cart_bp.post("/")
 @jwt_required()
@@ -33,19 +33,20 @@ def add_to_cart():
     user_id = g.user.id
     data = request.get_json()
     item_id = data.get("item_id")
-    quantity = data.get("quantity", 1)
 
     if not item_id:
         return jsonify({"error": "Item ID is required"}), 400
 
+    # Default quantity to 1
+    quantity = 1
+
     # Check if item is already in cart
     existing = Cart.query.filter_by(user_id=user_id, item_id=item_id).first()
     if existing:
-        existing.quantity += quantity
+        existing.quantity += 1  # Just increment by 1
         db.session.commit()
         return jsonify({"message": "Item quantity updated"}), 200
 
-    # Else create a new entry
     try:
         cart_item = Cart(user_id=user_id, item_id=item_id, quantity=quantity)
         db.session.add(cart_item)
@@ -54,6 +55,7 @@ def add_to_cart():
     except Exception as e:
         db.session.rollback()
         return jsonify({"error": str(e)}), 500
+
 
 @cart_bp.delete("/<cart_id>")
 @jwt_required()
