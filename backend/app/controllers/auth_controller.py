@@ -80,3 +80,9 @@ def get_me():
     if not current_user:
         return jsonify({"message": "User not found"}), 404
     return jsonify(current_user.to_dict()), 200
+
+@auth_bp.route('/logout', methods=["POST"])
+def logout():
+    response = make_response(jsonify({"message": "Successfully logged out"}), 200)
+    unset_jwt_cookies(response)
+    return response
