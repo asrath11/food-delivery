@@ -11,7 +11,7 @@ import Index from './pages/Index';
 import { UserAuthProvider } from './hooks/UserProvider';
 import Food from './pages/Food';
 import Login from './pages/Login';
-import Cart from './pages/Cart';
+import Cart from './pages/cart/Cart';
 import Profile from './pages/AdminDashBoard';
 import ProtectedAdminRoute from './components/ProtectedAdminRoute';
 const router = createBrowserRouter(
