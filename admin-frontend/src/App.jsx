@@ -8,7 +8,6 @@ import {
 
 import Layout from './components/Layout';
 import Index from './pages/Index';
-import { UserAuthProvider } from './hooks/UserProvider';
 import Food from './pages/Food';
 import Login from './pages/Login';
 import Cart from './pages/cart/Cart';
