@@ -2,7 +2,9 @@ import FoodCard from '@/components/food/FoodCard';
 import FilterSidebar from '@/components/food/FilterSidebar';
 import SortHeader from '@/components/food/SortByHeader';
 import useFoodFilter from '@/hooks/useFoodFilter';
-
+import axios from 'axios';
+import { API_URL } from '@/constants/config';
+import { useCart } from '@/hooks/CartProvider';
 function Food() {
   const {
     foodItems,
@@ -20,7 +22,7 @@ function Food() {
     handleSortChange,
   } = useFoodFilter();
 
-  const API_URL = import.meta.env.VITE_API_URL;
+  const { addToCart } = useCart();
   return (
     <div className='min-h-screen bg-gray-50'>
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8'>
@@ -60,6 +62,7 @@ function Food() {
                   key={item.id}
                   item={item}
                   imagePath={`${API_URL}/${item.image}`}
+                  onAddToCart={() => addToCart(item.id)}
                 />
               ))}
             </div>
