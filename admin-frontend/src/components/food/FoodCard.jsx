@@ -4,7 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Star, Heart, Plus } from 'lucide-react';
 
-export default function FoodCard({ item, imagePath }) {
+export default function FoodCard({ item, imagePath ,onAddToCart}) {
   return (
     <Card className='food-card group h-full flex flex-col'>
       <div className='relative flex-shrink-0'>
@@ -57,6 +57,7 @@ export default function FoodCard({ item, imagePath }) {
               <Button
                 size='sm'
                 className='bg-brand hover:bg-brand hover:text-white'
+                onClick={() => onAddToCart(item)}
               >
                 <Plus className='h-4 w-4 mr-2' />
                 Add to Cart
