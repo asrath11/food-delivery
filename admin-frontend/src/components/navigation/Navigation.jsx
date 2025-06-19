@@ -119,8 +119,8 @@ const Navigation = () => {
                   item.name === 'Browse Food'
                     ? 'text-black hover:text-black hover:bg-gray-50'
                     : item.current
-                    ? 'text-brand-600 bg-brand-50'
-                    : 'text-black hover:text-brand-600 hover:bg-gray-50'
+                      ? 'text-brand-600 bg-brand-50'
+                      : 'text-black hover:text-brand-600 hover:bg-gray-50'
                 )}
               >
                 {item.name}
