@@ -1,6 +1,6 @@
 import os
 from werkzeug.utils import secure_filename
-from flask import Blueprint, request, jsonify,current_app
+from flask import Blueprint, request, jsonify, current_app
 from app.models import db
 from app.models.item import Item
 from sqlalchemy.exc import SQLAlchemyError
@@ -8,6 +8,7 @@ from sqlalchemy.exc import SQLAlchemyError
 items_bp = Blueprint("items", __name__)
 
 allowed_types = [".png", ".jpg", ".jpeg", ".webp"]
+
 @items_bp.get("/")
 def get_all_items():
     items = Item.query.all()
@@ -31,7 +32,6 @@ def get_items_by_id(itemId):
         return jsonify({"status": "failed", "message": "Item not found"}), 404
 
     return jsonify({"status": "success", "item": item.to_dict()}), 200
-
 
 
 @items_bp.post("/")
@@ -79,6 +79,30 @@ def create_items():
         db.session.commit()
 
         return jsonify({"status": "success", "item": item.to_dict()}), 201
+
+    except SQLAlchemyError as e:
+        db.session.rollback()
+        return jsonify({"status": "failed", "message": str(e)}), 500
+    except Exception as e:
+        return jsonify({"status": "failed", "message": f"Unexpected error: {str(e)}"}), 500
+
+
+@items_bp.delete("/<itemId>")
+def delete_item(itemId):
+    try:
+        item = Item.query.filter_by(id=itemId).first()
+        if not item:
+            return jsonify({"status": "failed", "message": "Item not found"}), 404
+
+        # Delete image file if it exists
+        image_path = os.path.join(current_app.root_path, item.image)
+        if os.path.exists(image_path):
+            os.remove(image_path)
+
+        db.session.delete(item)
+        db.session.commit()
+
+        return jsonify({"status": "success", "message": "Item deleted successfully"}), 200
 
     except SQLAlchemyError as e:
         db.session.rollback()
