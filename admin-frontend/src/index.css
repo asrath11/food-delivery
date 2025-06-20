@@ -1,5 +1,5 @@
 @import 'tailwindcss';
-@import "tw-animate-css";
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -119,6 +119,6 @@
   }
 }
 
-@theme{
-  --color-brand:#D96459
+@theme {
+  --color-brand: #d96459;
 }
