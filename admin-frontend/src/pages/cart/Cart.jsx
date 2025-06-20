@@ -2,32 +2,43 @@ import { useUser } from '@/hooks/UserProvider';
 import { useCart } from '@/hooks/CartProvider';
 import CartLoginPrompt from './CartLoginPrompt';
 import CartItem from '@/components/cart/CartItem';
+import CartSummary from './CartSummary';
 
 function Cart() {
-  const { user, isLoading } = useUser();
-  const { cart } = useCart();
-  console.log(cart);
+  const { user, isLoading: userLoading } = useUser();
+  const { cartData } = useCart();
 
-  if (isLoading) {
+  if (userLoading) {
     return (
-      <div className="flex flex-col items-center justify-center h-[90vh]">
-        <p className="text-2xl font-bold">Loading...</p>
+      <div className='flex flex-col items-center justify-center h-[90vh]'>
+        <p className='text-2xl font-bold'>Loading user data...</p>
       </div>
     );
   }
 
   if (!user) {
     return (
-      <div className="flex flex-col items-center justify-center h-[90vh]">
+      <div className='flex flex-col items-center justify-center h-[90vh]'>
         <CartLoginPrompt />
       </div>
     );
   }
 
+  // If cart data is undefined or null, show loading state
+  if (!cartData || cartData.cart === undefined) {
+    return (
+      <div className='flex flex-col items-center justify-center h-[90vh]'>
+        <p className='text-2xl font-bold'>Loading cart items...</p>
+      </div>
+    );
+  }
+
   return (
-    <CartItem cart={cart} />
+    <div className='flex ml-10 my-10 p-10 w-full gap-x-16'>
+      <CartItem cartData={cartData} />
+      <CartSummary cartData={cartData} />
+    </div>
   );
 }
 
 export default Cart;
-
