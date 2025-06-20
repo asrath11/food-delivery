@@ -13,18 +13,20 @@ cart_bp = Blueprint("cart", __name__)
 def get_cart():
     user_id = g.user.id
     cart_items = Cart.query.filter_by(user_id=user_id).all()
-
+    total = 0
     data = [
         {
             "cart_id": cart.id,
             "item_id": cart.item_id,
             "quantity": cart.quantity,
-            "item": cart.item.to_dict()
+            "item": cart.item.to_dict(),
+            "item_price": cart.total_price
         }
         for cart in cart_items
     ]
-
-    return jsonify({"cart": data, "results": len(data)}), 200
+    for cart in cart_items:
+        total += cart.total_price
+    return jsonify({"cart": data, "results": len(data), "total": total}), 200
 
 @cart_bp.post("/")
 @jwt_required()
@@ -73,3 +75,27 @@ def remove_from_cart(cart_id):
     db.session.delete(cart_item)
     db.session.commit()
     return jsonify({"message": "Item removed from cart"}), 200
+
+@cart_bp.patch("/<cart_id>")
+@jwt_required()
+@get_current_user
+def update_cart(cart_id):
+    try:
+        user_id = g.user.id
+        cart_item = Cart.query.get(cart_id)
+        if not cart_item:
+            return jsonify({"error": "Cart item not found"}), 404
+        if cart_item.user_id != user_id:
+            return jsonify({"error": "Unauthorized"}), 401
+        data = request.get_json()
+        quantity = data.get("quantity")
+        if quantity is None:
+            return jsonify({"error": "Quantity is required"}), 400
+        if quantity < 1:
+            return jsonify({"error": "Quantity must be at least 1"}), 400
+        cart_item.quantity = quantity
+        db.session.commit()
+        return jsonify({"message": "Item updated in cart"}), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": f"An error occurred: {str(e)}"}), 500
