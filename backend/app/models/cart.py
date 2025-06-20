@@ -1,6 +1,7 @@
 from app.models.db import db
 from sqlalchemy import Column, String, Integer, ForeignKey
 from sqlalchemy.orm import relationship
+from sqlalchemy.ext.hybrid import hybrid_property
 import uuid
 
 class Cart(db.Model):
@@ -13,3 +14,7 @@ class Cart(db.Model):
 
     user = relationship("User", backref="cart_items", lazy=True, passive_deletes=True)
     item = relationship("Item", backref="in_carts", lazy=True, passive_deletes=True)
+
+    @hybrid_property
+    def total_price(self):
+        return self.item.price * self.quantity
