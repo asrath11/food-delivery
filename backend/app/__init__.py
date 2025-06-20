@@ -47,7 +47,7 @@ def create_app():
      supports_credentials=True,
      origins=["http://localhost:5173"],
      allow_headers=["Content-Type", "Authorization"],
-     methods=["GET", "POST", "DELETE", "PUT", "OPTIONS"])
+     methods=["GET", "POST", "DELETE", "PUT","PATCH", "OPTIONS"])
     db.init_app(app)
     migrate.init_app(app, db)
     bcrypt.init_app(app)
