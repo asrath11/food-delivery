@@ -18,3 +18,18 @@ export const createItem = async (item) => {
     throw error; // Let the calling function handle the error
   }
 };
+
+export const fetchItems = async () => {
+  try {
+    const res = await axios.get(ITEMS_URL, {
+      withCredentials: true,
+    });
+    return res?.data?.item;
+  } catch (error) {
+    console.error(
+      'Failed to fetch items:',
+      error.response?.data || error.message
+    );
+    throw error; // Let the calling function handle the error
+  }
+};
