@@ -6,7 +6,6 @@ import {
   removeCartItemFromCart,
 } from '@/api/cart';
 import { useUser } from './UserProvider';
-
 // Create the Cart Context
 const CartContext = createContext();
 
@@ -44,7 +43,6 @@ export const CartProvider = ({ children }) => {
       console.error('Remove from cart error:', err.response?.data || err.message);
     }
   };
-
   useEffect(() => {
     const fetchCart = async () => {
       try {
