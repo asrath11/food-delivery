@@ -4,10 +4,12 @@ import LoginPrompt from '../LoginPrompt';
 import { useWishList } from '@/hooks/WishListProvider';
 import { API_URL } from '@/constants/config';
 import FoodCard from '@/components/food/FoodCard';
+import { useCart } from '@/hooks/CartProvider';
 
 function WishList() {
   const { user, isLoading } = useUser();
-  const { wishListData, removeFromWishList } = useWishList();
+  const { wishListData, removeFromWishList, switchItemsToCart } = useWishList();
+  const { addToCart } = useCart();
   const wishListItems = wishListData?.wishlist || [];
   if (isLoading) {
     return (
@@ -26,6 +28,7 @@ function WishList() {
           key={index}
           item={foodItem.item}
           imagePath={`${API_URL}/${foodItem.item.image}`}
+          onAddToCart={() => switchItemsToCart(foodItem.item_id)}
           onRemoveFromWishlist={() => removeFromWishList(foodItem.item_id)}
           variant='wishlist'
         />
