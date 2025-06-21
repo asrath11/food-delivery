@@ -11,7 +11,7 @@ const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cartData, setCartData] = useState({ cart: [], total: 0 });
-  const { user, isLoading: userLoading } = useUser();
+  const { user } = useUser();
 
   const addToCart = async (item_id) => {
     try {

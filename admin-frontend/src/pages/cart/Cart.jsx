@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useUser } from '@/hooks/UserProvider';
 import { useCart } from '@/hooks/CartProvider';
 import LoginPrompt from '../LoginPrompt';

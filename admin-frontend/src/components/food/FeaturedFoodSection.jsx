@@ -15,7 +15,6 @@ function FeaturedFoodSection() {
   useEffect(() => {
     const fetchData = async () => {
       const res = await fetchItems();
-      console.log(res);
       setFeaturedFoodItems(res); // ✅ actually store the fetched data
     };
     fetchData();

@@ -4,7 +4,6 @@ import { CART_URL } from '@/constants/config';
 // Add item to cart
 export const addItemToCart = async (item_id) => {
   try {
-    console.log(item_id);
     const res = await axios.post(
       `${CART_URL}/`,
       { item_id },

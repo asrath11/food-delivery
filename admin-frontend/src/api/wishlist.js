@@ -1,8 +1,6 @@
 import axios from 'axios';
 import { WISHLIST_URL } from '../constants/config';
 
-console.log(WISHLIST_URL); //for debugging
-
 export const getItemsInWishList = async () => {
   try {
     const res = await axios.get(WISHLIST_URL, {

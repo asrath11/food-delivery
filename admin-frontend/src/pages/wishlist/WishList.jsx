@@ -4,12 +4,10 @@ import LoginPrompt from '../LoginPrompt';
 import { useWishList } from '@/hooks/WishListProvider';
 import { API_URL } from '@/constants/config';
 import FoodCard from '@/components/food/FoodCard';
-import { useCart } from '@/hooks/CartProvider';
 
 function WishList() {
   const { user, isLoading } = useUser();
   const { wishListData, removeFromWishList, switchItemsToCart } = useWishList();
-  const { addToCart } = useCart();
   const wishListItems = wishListData?.wishlist || [];
   if (isLoading) {
     return (
@@ -20,6 +18,13 @@ function WishList() {
   }
   if (!user) {
     return <LoginPrompt title='WishList' />;
+  }
+  if (wishListItems.length === 0) {
+    return (
+      <div className='flex flex-col items-center justify-center h-[90vh]'>
+        <p className='text-2xl font-bold'>No items in wishlist</p>
+      </div>
+    );
   }
   return (
     <div className='grid md:grid-cols-2 xl:grid-cols-4 gap-4 p-5'>
