@@ -22,7 +22,6 @@ function Login() {
     const form = new FormData();
     form.append('email', formData.email);
     form.append('password', formData.password);
-
     try {
       const response = await axios.post(LOGIN_URL, form, {
         withCredentials: true,
