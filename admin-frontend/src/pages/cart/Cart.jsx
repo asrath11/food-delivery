@@ -1,6 +1,6 @@
 import { useUser } from '@/hooks/UserProvider';
 import { useCart } from '@/hooks/CartProvider';
-import CartLoginPrompt from './CartLoginPrompt';
+import LoginPrompt from '../LoginPrompt';
 import CartItem from '@/components/cart/CartItem';
 import CartSummary from './CartSummary';
 
@@ -17,11 +17,7 @@ function Cart() {
   }
 
   if (!user) {
-    return (
-      <div className='flex flex-col items-center justify-center h-[90vh]'>
-        <CartLoginPrompt />
-      </div>
-    );
+    return <LoginPrompt />;
   }
 
   // If cart data is undefined or null, show loading state
