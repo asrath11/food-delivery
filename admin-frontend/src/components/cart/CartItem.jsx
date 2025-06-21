@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { API_URL } from '@/constants/config';
 import { Button } from '../ui/button';
 import { Separator } from '../ui/separator';
@@ -7,12 +7,6 @@ import { useCart } from '@/hooks/CartProvider';
 
 function CartItem({ cartData }) {
   const { updateQuantity, removeFromCart } = useCart();
-  const [isInitialLoading, setIsInitialLoading] = useState(true);
-
-  // Set initial loading to false after first render
-  useEffect(() => {
-    setIsInitialLoading(false);
-  }, []);
 
   const handleIncrease = (cart_id, quantity) =>
     updateQuantity(cart_id, quantity + 1);
@@ -21,11 +15,6 @@ function CartItem({ cartData }) {
       updateQuantity(cart_id, quantity - 1);
     }
   };
-
-  // Show nothing while initially loading
-  if (isInitialLoading) {
-    return null;
-  }
 
   // If cart data is undefined or null, show loading state
   if (!cartData?.cart) {
@@ -122,7 +111,7 @@ function CartItem({ cartData }) {
                       variant='ghost'
                       size='icon'
                       className='w-8 h-8 hover:bg-gray-100 hover:text-green-600'
-                      disabled={quantity >= 5}
+                      disabled={quantity >= 100}
                       onClick={() => handleIncrease(cart_id, quantity)}
                     >
                       <Plus className='w-4 h-4' />
