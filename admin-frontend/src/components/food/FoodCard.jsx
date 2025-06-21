@@ -49,8 +49,8 @@ function FoodCard({
           alt={item.name}
           className='w-full h-48 object-cover rounded-t-lg'
         />
-        {item.popular && (
-          <Badge className='absolute top-3 left-3 bg-brand-500 text-white'>
+        {item.is_popular && (
+          <Badge className='absolute top-3 left-3 bg-brand text-white'>
             Popular
           </Badge>
         )}
@@ -87,7 +87,7 @@ function FoodCard({
             </h3>
             <div className='flex items-center space-x-1 flex-shrink-0'>
               <Star className='h-4 w-4 text-yellow-400 fill-current' />
-              <span className='font-medium'>{item.rating}</span>
+              <span className='font-medium'>4.5</span>
             </div>
           </div>
 
@@ -106,16 +106,15 @@ function FoodCard({
               <div className='text-lg font-semibold text-gray-900'>
                 ₹{item?.price.toFixed(2)}
               </div>
-              {variant !== 'wishlist' && (
-                <Button
-                  size='sm'
-                  className='bg-brand hover:bg-brand hover:text-white cursor-pointer'
-                  onClick={() => onAddToCart(item)}
-                >
-                  <Plus className='h-4 w-4 mr-2' />
-                  Add to Cart
-                </Button>
-              )}
+
+              <Button
+                size='sm'
+                className='bg-brand hover:bg-brand hover:text-white cursor-pointer'
+                onClick={() => onAddToCart(item)}
+              >
+                <Plus className='h-4 w-4 mr-2' />
+                Add to Cart
+              </Button>
             </div>
           </div>
         </div>
