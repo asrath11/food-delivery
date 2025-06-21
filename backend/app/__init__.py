@@ -12,6 +12,7 @@ from app.controllers.cart_controller import cart_bp
 from app.controllers.user_controller import users_bp
 from app.controllers.items_controller import items_bp
 from app.controllers.auth_controller import auth_bp
+from app.controllers.wishlist_controller import wishlist_bp
 from config import setting
 from datetime import timedelta
 
@@ -57,6 +58,7 @@ def create_app():
     app.register_blueprint(items_bp, url_prefix="/items")
     app.register_blueprint(auth_bp, url_prefix="/auth")
     app.register_blueprint(cart_bp, url_prefix="/cart")
+    app.register_blueprint(wishlist_bp, url_prefix="/wishlist")
 
     @app.route('/uploads/<filename>')
     def uploaded_file(filename):
