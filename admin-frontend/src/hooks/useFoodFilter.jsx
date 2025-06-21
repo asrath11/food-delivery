@@ -62,14 +62,14 @@ function useFoodFilter() {
         priceRange.length === 0 ||
         priceRange.some((range) => {
           switch (range) {
-            case 'under-10':
-              return item.price < 10;
-            case '10-15':
-              return item.price >= 10 && item.price <= 15;
-            case '15-20':
-              return item.price >= 15 && item.price <= 20;
-            case 'over-20':
-              return item.price > 20;
+            case 'under-100':
+              return item.price < 100;
+            case '100-150':
+              return item.price >= 100 && item.price <= 150;
+            case '150-200':
+              return item.price >= 150 && item.price <= 200;
+            case 'over-200':
+              return item.price > 200;
             default:
               return true; // Should not happen if priceRanges are well-defined
           }
