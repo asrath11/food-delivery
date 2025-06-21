@@ -12,7 +12,7 @@ cart_bp = Blueprint("cart", __name__)
 @get_current_user
 def get_cart():
     user_id = g.user.id
-    cart_items = Cart.query.filter_by(user_id=user_id).all()
+    cart_items = Cart.query.filter_by(user_id=user_id).order_by(Cart.id.asc()).all()#order by id
     total = 0
     data = [
         {
