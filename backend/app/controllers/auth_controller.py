@@ -44,7 +44,7 @@ def create_user():
     db.session.commit()
     token = create_access_token(email)
     response = make_response(jsonify({"message": "User created", "token": token}), 201)
-    set_access_cookies(response, token)
+    set_access_cookies(response, token,max_age=timedelta(days=15))
     return response
 
 
@@ -63,12 +63,10 @@ def login_user():
     if not user or not bcrypt.check_password_hash(user.password, password):
             return jsonify({"message": "Invalid email or password"}), 401
 
-    expires = datetime.now() + timedelta(hours=24)
     token = create_access_token(identity=email)
     response = make_response(
         jsonify({"message": "Successfully logged In", "user":user.to_dict()}), 200)
-    set_access_cookies(response, token,max_age=3600)
-    # response.set_cookie("access-token", token, expires=expires,httponly=True)
+    set_access_cookies(response, token,max_age=timedelta(days=15))
     return response
 
 @auth_bp.route('/me', methods=["GET"])
