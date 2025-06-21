@@ -5,13 +5,14 @@ import {
   addItemToWishList,
   removeItemFromWishList,
 } from '@/api/wishlist';
-
+import { useCart } from './CartProvider';
 const WishListContext = createContext();
 
 export const WishListProvider = ({ children }) => {
   const [wishListData, setWishListData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const { user } = useUser();
+  const { addToCart } = useCart();
 
   useEffect(() => {
     const fetchWishList = async () => {
@@ -59,10 +60,31 @@ export const WishListProvider = ({ children }) => {
       setIsLoading(false);
     }
   };
-
+  const switchItemsToCart = async (item_id) => {
+    try {
+      setIsLoading(true);
+      await removeFromWishList(item_id);
+      const updatedWishList = await getItemsInWishList();
+      await addToCart(item_id);
+      setWishListData(updatedWishList);
+    } catch (err) {
+      console.error(
+        'Remove from wish list error:',
+        err.response?.data || err.message
+      );
+    } finally {
+      setIsLoading(false);
+    }
+  };
   return (
     <WishListContext.Provider
-      value={{ wishListData, isLoading, addToWishList, removeFromWishList }}
+      value={{
+        wishListData,
+        isLoading,
+        addToWishList,
+        removeFromWishList,
+        switchItemsToCart,
+      }}
     >
       {children}
     </WishListContext.Provider>
