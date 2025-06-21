@@ -3,3 +3,4 @@ export const LOGIN_URL = `${API_URL}/auth/login`;
 export const SIGNUP_URL = `${API_URL}/auth/signup`;
 export const ITEMS_URL = `${API_URL}/items/`;
 export const CART_URL = `${API_URL}/cart`;
+export const WISHLIST_URL = `${API_URL}/wishlist`;
