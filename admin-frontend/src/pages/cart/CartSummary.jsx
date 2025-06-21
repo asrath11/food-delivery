@@ -24,7 +24,7 @@ function CartSummary({ cartData }) {
   }
 
   return (
-    <div className='bg-white shadow-lg w-1/4 border border-gray-200 p-6'>
+    <div className='bg-white shadow-lg w-1/4 h-[350px] border border-gray-200 p-6'>
       <h1 className='text-3xl font-bold mb-10 text-gray-900 border-b border-gray-300 pb-4'>
         Order Summary
       </h1>
