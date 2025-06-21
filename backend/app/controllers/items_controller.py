@@ -7,7 +7,7 @@ from sqlalchemy.exc import SQLAlchemyError
 
 items_bp = Blueprint("items", __name__)
 
-allowed_types = [".png", ".jpg", ".jpeg", ".webp"]
+allowed_types = [".png", ".jpg", ".jpeg", ".webp",".avif"]
 
 @items_bp.get("/")
 def get_all_items():
