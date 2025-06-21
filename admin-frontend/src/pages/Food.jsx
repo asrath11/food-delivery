@@ -67,7 +67,7 @@ function Food() {
                   key={item.id}
                   item={item}
                   imagePath={`${API_URL}/${item.image}`}
-                  onAddToCart={() => addToCart(item)}
+                  onAddToCart={() => addToCart(item.id)}
                   onAddToWishlist={() => addToWishlist(item.id)}
                 />
               ))}

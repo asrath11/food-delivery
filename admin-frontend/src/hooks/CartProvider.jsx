@@ -15,6 +15,7 @@ export const CartProvider = ({ children }) => {
   const { user, isLoading: userLoading } = useUser();
 
   const addToCart = async (item_id) => {
+    console.log(item_id);
     try {
       await addItemToCart(item_id);
       const updatedCart = await getItemsInCart();
