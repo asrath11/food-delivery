@@ -10,10 +10,10 @@ export const categories = [
 ];
 
 export const priceRanges = [
-  { label: 'Under $10', value: 'under-10' },
-  { label: '$10 - $15', value: '10-15' },
-  { label: '$15 - $20', value: '15-20' },
-  { label: 'Over $20', value: 'over-20' },
+  { label: 'Under ₹100', value: 'under-100' },
+  { label: '₹100 - ₹150', value: '100-150' },
+  { label: '₹150 - ₹200', value: '150-200' },
+  { label: 'Over ₹200', value: 'over-200' },
 ];
 
 export const dietaryOptions = [
