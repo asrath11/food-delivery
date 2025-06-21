@@ -1,7 +1,8 @@
+import { useState } from 'react';
 import { useUser } from '@/hooks/UserProvider';
 import { useCart } from '@/hooks/CartProvider';
 import LoginPrompt from '../LoginPrompt';
-import CartItem from '@/components/cart/CartItem';
+import CartList from '@/components/cart/CartList';
 import CartSummary from './CartSummary';
 
 function Cart() {
@@ -31,7 +32,7 @@ function Cart() {
 
   return (
     <div className='flex ml-10 my-10 p-10 w-full gap-x-16'>
-      <CartItem cartData={cartData} />
+      <CartList cartData={cartData} />
       <CartSummary cartData={cartData} />
     </div>
   );
