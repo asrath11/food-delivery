@@ -60,9 +60,8 @@ def login_user():
     password = form_data["password"]
 
     user = User.query.filter_by(email=email).first()
-    isvalid = bcrypt.check_password_hash(user.password, password)
-    if not user or not isvalid:
-        return jsonify({"message": "Invalid email or password"}), 401
+    if not user or not bcrypt.check_password_hash(user.password, password):
+            return jsonify({"message": "Invalid email or password"}), 401
 
     expires = datetime.now() + timedelta(hours=24)
     token = create_access_token(identity=email)
