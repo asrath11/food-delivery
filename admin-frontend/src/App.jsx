@@ -14,6 +14,7 @@ import Cart from './pages/cart/Cart';
 import Profile from './pages/AdminDashBoard';
 import ProtectedAdminRoute from './components/ProtectedAdminRoute';
 import WishList from './pages/wishlist/WishList';
+import SignUp from './pages/SignUp';
 
 const router = createBrowserRouter(
   createRoutesFromChildren(
@@ -22,6 +23,7 @@ const router = createBrowserRouter(
         <Route index element={<Index />} />
         <Route path='/food' element={<Food />} />
         <Route path='/login' element={<Login />} />
+        <Route path='/signup' element={<SignUp />} />
         <Route path='/cart' element={<Cart />} />
         <Route path='/wishlist' element={<WishList />} />
         <Route
