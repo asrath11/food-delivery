@@ -5,7 +5,7 @@ import Footer from '@/components/footer/Footer';
 
 const Index = () => {
   return (
-    <div className='min-h-screen bg-brand'>
+    <div className='min-h-screen'>
       {/* Hero Section */}
       <HeroSection />
       {/* Categories Section */}

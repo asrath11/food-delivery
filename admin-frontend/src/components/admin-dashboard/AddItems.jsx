@@ -66,7 +66,7 @@ function AddItems() {
       />
       <Input type='file' name='image' onChange={handleChange} />
 
-      <Button className='bg-brand text-white'>Add Item</Button>
+      <Button className='bg-primary text-white'>Add Item</Button>
     </form>
   );
 }

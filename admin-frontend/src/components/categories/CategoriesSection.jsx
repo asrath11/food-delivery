@@ -53,13 +53,13 @@ const categories = [
 ];
 function CategoriesSection() {
   return (
-    <section className='py-16 bg-white'>
+    <section className='py-16'>
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
         <div className='text-center mb-12'>
-          <h2 className='text-3xl font-display font-bold text-gray-900 mb-4'>
+          <h2 className='text-3xl font-display font-bold mb-4'>
             What are you craving?
           </h2>
-          <p className='text-lg text-gray-600 max-w-2xl mx-auto'>
+          <p className='text-lg text-gray-400 max-w-2xl mx-auto'>
             Explore cuisines from around the world, delivered right to your door
           </p>
         </div>
@@ -76,10 +76,12 @@ function CategoriesSection() {
               >
                 <CardContent className='p-4 text-center'>
                   <div className='text-3xl mb-2'>{category.icon}</div>
-                  <div className='font-semibold text-sm text-gray-900 mb-1'>
+                  <div className='font-semibold text-sm mb-1 text-black'>
                     {category.name}
                   </div>
-                  <div className='text-xs text-gray-600'>{category.count}</div>
+                  <div className='text-xs text-muted-foreground'>
+                    {category.count}
+                  </div>
                 </CardContent>
               </Card>
             </Link>

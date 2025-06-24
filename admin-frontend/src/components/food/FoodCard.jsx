@@ -33,7 +33,7 @@ function FoodCard({
       } else {
         await addToWishList(item_id);
       }
-      setIsWishlisted((prev) => !prev); // ✅ Only toggle in default variant
+      setIsWishlisted((prev) => !prev); // Only toggle in default variant
     } else if (variant === 'wishlist') {
       if (onRemoveFromWishlist) {
         await onRemoveFromWishlist(item_id);
@@ -50,7 +50,7 @@ function FoodCard({
           className='w-full h-48 object-cover rounded-t-lg'
         />
         {item.is_popular && (
-          <Badge className='absolute top-3 left-3 bg-brand text-white'>
+          <Badge className='absolute top-3 left-3 bg-primary text-primary-foreground'>
             Popular
           </Badge>
         )}
@@ -58,7 +58,7 @@ function FoodCard({
           <Button
             variant='ghost'
             size='sm'
-            className='absolute top-3 right-3 bg-white/90 hover:bg-white p-2 cursor-pointer'
+            className='absolute top-3 right-3 text-primary-foreground hover:bg-primary/5'
             onClick={() => handleWishlistClick(item.id)}
           >
             <Heart
@@ -71,7 +71,7 @@ function FoodCard({
           <Button
             variant='ghost'
             size='sm'
-            className='absolute top-3 right-3 bg-white/90 hover:bg-white p-2 cursor-pointer'
+            className='absolute top-3 right-3 text-primary-foreground hover:bg-primary/5'
             onClick={() => handleWishlistClick(item.id)}
           >
             <X className='h-4 w-4 text-gray-400 hover:text-red-500' />
@@ -82,7 +82,7 @@ function FoodCard({
       <CardContent className='p-4 flex flex-col flex-grow'>
         <div className='flex flex-col flex-grow space-y-2'>
           <div className='flex items-center justify-between gap-4 whitespace-nowrap overflow-hidden'>
-            <h3 className='font-semibold text-lg text-gray-900 group-hover:text-brand-600 transition-colors'>
+            <h3 className='font-semibold text-lg text-foreground group-hover:text-primary-600 transition-colors'>
               {item.name}
             </h3>
             <div className='flex items-center space-x-1 flex-shrink-0'>
@@ -97,19 +97,19 @@ function FoodCard({
 
           <div className='mt-auto'>
             <div className='flex items-center justify-between text-sm mb-2'>
-              <Badge variant='secondary' className='text-xs'>
+              <Badge variant='outline' className='text-xs'>
                 {item.category}
               </Badge>
             </div>
 
-            <div className='flex items-center justify-between pt-2 border-t border-gray-100'>
-              <div className='text-lg font-semibold text-gray-900'>
+            <div className='flex items-center justify-between pt-2 border-t border-gray-400'>
+              <div className='text-lg font-semibold'>
                 ₹{item?.price.toFixed(2)}
               </div>
 
               <Button
                 size='sm'
-                className='bg-brand hover:bg-brand hover:text-white cursor-pointer'
+                className='bg-primary hover:bg-primary hover:text-primary-foreground cursor-pointer'
                 onClick={() => onAddToCart(item)}
               >
                 <Plus className='h-4 w-4 mr-2' />

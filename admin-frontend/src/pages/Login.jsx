@@ -38,20 +38,20 @@ function Login() {
   };
 
   return (
-    <section className='flex justify-center items-center w-full h-screen bg-white'>
-      <Card className='w-full max-w-md p-8 space-y-6 shadow-lg border border-brand-200'>
-        <h1 className='text-2xl font-bold text-center text-black'>Login</h1>
+    <section className='flex justify-center items-center w-full h-screen bg-background'>
+      <Card className='w-full max-w-md p-8 space-y-6 shadow-lg border border-border'>
+        <h1 className='text-2xl font-bold text-center text-foreground'>Login</h1>
 
         <form className='space-y-4' onSubmit={handleLogin}>
           <div className='space-y-1'>
-            <Label htmlFor='email' className='text-black'>
+            <Label htmlFor='email' className='text-foreground'>
               Email
             </Label>
             <Input
               id='email'
               type='email'
               placeholder='Enter your email'
-              className='bg-white border border-brand-300 text-black placeholder:text-gray-400'
+              className='bg-card border-border text-foreground placeholder:text-muted-foreground'
               value={formData.email}
               onChange={(e) =>
                 setFormData({ ...formData, email: e.target.value })
@@ -61,14 +61,14 @@ function Login() {
           </div>
 
           <div className='space-y-1'>
-            <Label htmlFor='password' className='text-black'>
+            <Label htmlFor='password' className='text-foreground'>
               Password
             </Label>
             <Input
               id='password'
               type='password'
               placeholder='Enter your password'
-              className='bg-white border border-brand-300 text-black placeholder:text-gray-400'
+              className='bg-card border-border text-foreground placeholder:text-muted-foreground'
               value={formData.password}
               onChange={(e) =>
                 setFormData({ ...formData, password: e.target.value })
@@ -79,7 +79,7 @@ function Login() {
 
           <Button
             type='submit'
-            className='w-full bg-brand text-white hover:bg-brand-600 cursor-pointer'
+            className='w-full bg-primary text-primary-foreground hover:bg-primary/90 cursor-pointer'
           >
             Submit
           </Button>

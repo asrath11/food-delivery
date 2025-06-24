@@ -22,7 +22,7 @@ const quickStats = [
 ];
 function HeroSection() {
   return (
-    <section className='relative bg-gradient-to-br from-brand-500 via-brand-600 to-brand-700 text-white overflow-hidden'>
+    <section className='relative bg-primary text-white overflow-hidden'>
       <div className='absolute inset-0 bg-black/10'></div>
       <div className='relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24'>
         <div className='grid lg:grid-cols-2 gap-12 items-center'>
@@ -45,7 +45,8 @@ function HeroSection() {
               <Link to='/food'>
                 <Button
                   size='lg'
-                  className='bg-brand text-brand-600 hover:bg-brand/40 font-semibold px-8 py-4 text-lg'
+                  variant={'outline'}
+                  className='px-8 py-4 text-lg text-secondary-foreground'
                 >
                   Browse Food
                   <ArrowRight className='ml-2 h-5 w-5' />

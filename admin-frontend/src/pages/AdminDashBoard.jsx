@@ -27,7 +27,7 @@ function AdminDashBoard() {
             <li
               key={item.id}
               className={`p-2 rounded flex items-center gap-3 cursor-pointer transition ${
-                activeTab === item.id ? 'bg-brand text-white' : ''
+                activeTab === item.id ? 'bg-primary text-white' : ''
               }`}
               onClick={() => setActiveTab(item.id)}
             >

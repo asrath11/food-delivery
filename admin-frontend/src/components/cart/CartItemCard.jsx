@@ -60,10 +60,8 @@ function CartItemCard({ cartItem, showSeparator }) {
           </div>
 
           <div className='flex flex-col justify-between flex-1 space-y-2'>
-            <h2 className='text-lg font-semibold text-gray-900 truncate'>
-              {product.name}
-            </h2>
-            <p className='text-sm text-gray-600 line-clamp-2'>{product?.desc}</p>
+            <h2 className='text-lg font-semibold truncate'>{product.name}</h2>
+            <p className='text-sm text-gray-400 line-clamp-2'>{product?.desc}</p>
 
             <div className='flex gap-3 pt-2'>
               <Button
@@ -97,7 +95,7 @@ function CartItemCard({ cartItem, showSeparator }) {
             ₹{product.price}
           </h3>
 
-          <div className='flex items-center gap-3 bg-white rounded-full border border-gray-300 px-3 py-1 shadow-sm'>
+          <div className='flex items-center gap-3 bg-secondary rounded-full border border-gray-300 px-3 py-1 shadow-sm'>
             <Button
               variant='ghost'
               size='icon'
@@ -109,7 +107,7 @@ function CartItemCard({ cartItem, showSeparator }) {
               <Minus className='w-4 h-4' />
             </Button>
 
-            <span className='text-base font-medium text-gray-800 min-w-[1.5rem] text-center'>
+            <span className='text-base font-medium text-secondary-foreground min-w-[1.5rem] text-center'>
               {quantity}
             </span>
 

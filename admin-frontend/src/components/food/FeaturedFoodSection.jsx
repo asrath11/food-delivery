@@ -23,11 +23,11 @@ function FeaturedFoodSection() {
     (item) => item.is_popular === true
   );
   return (
-    <section className='py-16 bg-gray-50'>
+    <section className='py-16'>
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
         <div className='flex justify-between items-center mb-12'>
           <div>
-            <h2 className='text-3xl font-display font-bold text-gray-900 mb-2'>
+            <h2 className='text-3xl font-display font-bold mb-2'>
               Popular Dishes
             </h2>
             <p className='text-lg text-gray-600'>
@@ -35,10 +35,7 @@ function FeaturedFoodSection() {
             </p>
           </div>
           <Link to='/food'>
-            <Button
-              variant='outline'
-              className='hidden sm:flex bg-brand text-white hover:bg-brand hover:text-white'
-            >
+            <Button className='hidden sm:flex cursor-pointer'>
               View All
               <ArrowRight className='ml-2 h-4 w-4' />
             </Button>
@@ -64,7 +61,7 @@ function FeaturedFoodSection() {
 
         <div className='text-center mt-8 sm:hidden'>
           <Link to='/food'>
-            <Button variant='outline' className='w-full'>
+            <Button variant='outline' className='w-full cursor-pointer'>
               View All Food Items
               <ArrowRight className='ml-2 h-4 w-4' />
             </Button>

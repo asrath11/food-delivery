@@ -23,15 +23,15 @@ const Navigation = () => {
   ];
 
   return (
-    <nav className='bg-white shadow-sm border-b border-gray-100 sticky top-0 z-50'>
+    <nav className='bg-card text-card-foreground shadow-sm sticky top-0 z-50'>
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
         <div className='flex justify-between items-center h-16'>
           {/* Logo */}
           <Link to='/' className='flex items-center space-x-2'>
-            <div className='w-8 h-8 bg-gradient-to-br from-brand-500 to-brand-600 rounded-lg flex items-center justify-center bg-brand'>
+            <div className='w-8 h-8 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg flex items-center justify-center bg-primary'>
               <span className='text-white font-bold text-xl'>F</span>
             </div>
-            <span className='font-display font-bold text-xl text-gray-900'>
+            <span className='font-display font-bold text-xl text-card-foreground'>
               FoodieExpress
             </span>
           </Link>
@@ -44,11 +44,11 @@ const Navigation = () => {
                 to={item.href}
                 className={cn(
                   // Base styles
-                  'text-md font-medium transition-all duration-200',
-                  'hover:text-brand',
+                  'text-md font-semibold transition-all duration-200',
+                  'hover:text-primary',
                   item.current
-                    ? 'text-brand-600 after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-brand-600 after:animate-underline'
-                    : 'text-gray-600'
+                    ? 'text-primary-600 after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary-600 after:animate-underline'
+                    : 'text-card-foreground'
                 )}
               >
                 {item.name}
@@ -60,12 +60,12 @@ const Navigation = () => {
           <div className='hidden lg:flex flex-1 max-w-md mx-8'>
             <div className='relative w-full'>
               <div className='absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none'>
-                <Search className='h-4 w-4 text-gray-400' />
+                <Search className='h-4 w-4 ' />
               </div>
               <Input
                 type='text'
                 placeholder='Search for food and dishes...'
-                className='pl-10 pr-4 py-2 w-full focus-visible:ring-brand/600'
+                className='pl-10 pr-4 py-2 w-full focus-visible:ring-primary/600'
               />
             </div>
           </div>
@@ -81,7 +81,7 @@ const Navigation = () => {
               <Button variant='ghost' size='sm' className='relative p-2 '>
                 <ShoppingCart className='size-5' />
                 {cartItemCount > 0 && (
-                  <Badge className='absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 bg-brand-500 text-brand text-xs'>
+                  <Badge className='absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 bg-primary-500 text-primary text-xs'>
                     {cartItemCount}
                   </Badge>
                 )}
@@ -117,10 +117,10 @@ const Navigation = () => {
                 className={cn(
                   'block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200',
                   item.name === 'Browse Food'
-                    ? 'text-black hover:text-black hover:bg-gray-50'
+                    ? 'text-foreground hover:text-foreground hover:bg-gray-50'
                     : item.current
-                      ? 'text-brand-600 bg-brand-50'
-                      : 'text-black hover:text-brand-600 hover:bg-gray-50'
+                    ? 'text-primary-600 bg-primary-50'
+                    : 'text-foreground hover:text-primary-600 hover:bg-gray-50'
                 )}
               >
                 {item.name}

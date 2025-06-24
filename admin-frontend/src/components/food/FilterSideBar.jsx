@@ -19,7 +19,7 @@ const FilterContent = ({
   handleDietaryChange,
   clearAllFilters,
 }) => (
-  <div className='bg-white rounded-lg border p-6 space-y-6'>
+  <div className='rounded-lg border p-6 space-y-6 bg-card text-card-foreground'>
     <div className='flex items-center justify-between'>
       <h3 className='font-semibold text-lg'>Filters</h3>
       <Button variant='ghost' size='sm' onClick={clearAllFilters}>
@@ -31,7 +31,7 @@ const FilterContent = ({
     <div>
       <Label className='text-sm font-medium mb-2 block'>Search dishes</Label>
       <div className='relative'>
-        <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400' />
+        <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4' />
         <Input
           type='text'
           placeholder='Enter Dish name'

@@ -6,7 +6,7 @@ function CartList({ cartData }) {
   // cartResponse instead of cartData
   if (!cartData?.cart) {
     return (
-      <div className='w-1/2 bg-white p-6 border border-gray-200 shadow-lg'>
+      <div className='w-1/2 p-6 shadow-lg'>
         <p className='text-2xl font-semibold'>Loading cart items...</p>
       </div>
     );
@@ -23,8 +23,8 @@ function CartList({ cartData }) {
   }
 
   return (
-    <div className='bg-white shadow-lg w-1/2 border border-gray-200 p-6'>
-      <h1 className='text-3xl font-bold mb-10 text-gray-900 border-b border-gray-300 pb-4'>
+    <div className='bg-card text-card-foreground rounded-2xl shadow-lg w-1/2 border border-gray-200 p-6'>
+      <h1 className='text-3xl font-bold mb-10 border-b border-gray-300 pb-4'>
         🛒 Your Cart
       </h1>
       <div className='space-y-8'>
