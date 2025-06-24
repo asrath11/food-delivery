@@ -1,15 +1,24 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation, Link } from 'react-router-dom';
-import { Search, ShoppingCart, Menu, X, Heart } from 'lucide-react';
+import { Search, ShoppingCart, Menu, X, Heart, MoonIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 
 import { cn } from '@/lib/utils';
 import ProfileDropDown from './ProfileDropDown';
+import { Toggle } from '../ui/toggle';
 
 const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const handleToggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+  useEffect(() => {
+    document.body.classList.remove('dark', 'light');
+    document.body.classList.add(isDarkMode ? 'dark' : 'light');
+  }, [isDarkMode]);
   const location = useLocation();
   const cartItemCount = 3; // Replace with actual cart state
 
@@ -88,6 +97,7 @@ const Navigation = () => {
               </Button>
             </Link>
             <ProfileDropDown />
+
             {/* Mobile Menu Toggle */}
             <Button
               variant='ghost'
@@ -102,6 +112,9 @@ const Navigation = () => {
               )}
             </Button>
           </div>
+          <Toggle onClick={handleToggleDarkMode}>
+            <MoonIcon />
+          </Toggle>
         </div>
       </div>
 
