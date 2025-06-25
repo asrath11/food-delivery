@@ -6,6 +6,7 @@ class Settings(BaseSettings):
     db_url: str = Field(..., alias="DATABASE_URL")
     jwt_access_secret: str = Field(..., alias="JWT_SECRET_KEY")
     secret_key: str = Field(..., alias="SECRET_KEY")
+    port : int = Field(...,alias='PORT')
 
     class Config:
         env_file = ".env"
