@@ -16,7 +16,7 @@ function CartList({ cartData }) {
 
   if (cartItems.length === 0) {
     return (
-      <div className='w-1/2 bg-white p-6 border border-gray-200 shadow-lg'>
+      <div className='w-1/2 bg-card text-card-foreground p-6 border'>
         <h2 className='text-2xl font-semibold'>🛒 Your Cart is Empty</h2>
       </div>
     );
