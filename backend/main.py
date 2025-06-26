@@ -8,5 +8,5 @@ def index():
     return "Hello World"
 
 if __name__ == "__main__":
-    print(f"Production server started at http://0.0.0.0:{setting.port}")
-    serve(app, host="0.0.0.0", port=setting.port, threads=6)
+    print(f"Production server started at http://localhost:{setting.port}")
+    serve(app, host="localhost", port=setting.port, threads=6)
