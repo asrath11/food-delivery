@@ -98,7 +98,7 @@ const FilterContent = ({
   </div>
 );
 
-const FilterSidebar = (props) => {
+const FilterSideBar = (props) => {
   const [showMobileFilters, setShowMobileFilters] = useState(false);
 
   return (
@@ -132,4 +132,4 @@ const FilterSidebar = (props) => {
   );
 };
 
-export default FilterSidebar;
+export default FilterSideBar;
