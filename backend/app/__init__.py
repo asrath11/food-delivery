@@ -46,7 +46,7 @@ def create_app():
     app.config["MAX_CONTENT_LENGTH"] = 20 * 1024 * 1024  # 10 MB
     CORS(app,
      supports_credentials=True,
-     origins=["https://food-delivery-admin-45xn.onrender.com"],
+     origins=["https://food-delivery-admin-45xn.onrender.com","http://localhost:5173"],
      allow_headers=["Content-Type", "Authorization"],
      methods=["GET", "POST", "DELETE", "PUT","PATCH", "OPTIONS"])
     db.init_app(app)
