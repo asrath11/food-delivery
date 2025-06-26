@@ -5,10 +5,11 @@ import { Separator } from '../ui/separator';
 import { Heart, Trash, Minus, Plus } from 'lucide-react';
 import { useCart } from '@/hooks/CartProvider';
 import { useWishList } from '@/hooks/WishListProvider';
+import { toast } from 'react-toastify';
 
 function CartItemCard({ cartItem, showSeparator }) {
-  const [isWishList, setIsWishList] = useState(false); // More descriptive
-  const { updateQuantity, removeFromCart } = useCart(); // More specific names
+  const [isWishList, setIsWishList] = useState(false);
+  const { updateQuantity, removeFromCart } = useCart();
   const { addToWishList, removeFromWishList, wishListData } = useWishList();
 
   useEffect(() => {
@@ -20,33 +21,47 @@ function CartItemCard({ cartItem, showSeparator }) {
     }
   }, [wishListData, cartItem.item_id]);
 
-  const {
-    cart_id: cartId,
-    item: product,
-    quantity,
-    item_id: productId,
-  } = cartItem;
-
-  const handleWishlistClick = () => {
-    if (isWishList) {
-      removeFromWishList(productId);
-    } else {
-      addToWishList(productId);
-    }
-    setIsWishList(!isWishList);
-  };
-
-  const increaseQuantity = () => {
-    updateQuantity(cartId, quantity + 1);
-  };
-
-  const decreaseQuantity = () => {
-    if (quantity > 1) {
-      updateQuantity(cartId, quantity - 1);
+  const handleWishlistClick = async () => {
+    try {
+      if (isWishList) {
+        await removeFromWishList(cartItem.item_id);
+      } else {
+        await addToWishList(cartItem.item_id);
+        toast.success('Added to wishlist!');
+      }
+      setIsWishList(!isWishList);
+    } catch (error) {
+      toast.error('Failed to update wishlist');
     }
   };
 
-  const handleRemoveItem = () => removeFromCart(cartId);
+  const increaseQuantity = async () => {
+    try {
+      await updateQuantity(cartItem.cart_id, cartItem.quantity + 1);
+    } catch (error) {
+      toast.error('Failed to update quantity');
+    }
+  };
+
+  const decreaseQuantity = async () => {
+    if (cartItem.quantity > 1) {
+      try {
+        await updateQuantity(cartItem.cart_id, cartItem.quantity - 1);
+      } catch (error) {
+        toast.error('Failed to update quantity');
+      }
+    }
+  };
+
+  const handleRemoveItem = async () => {
+    try {
+      await removeFromCart(cartItem.cart_id);
+    } catch (error) {
+      toast.error('Failed to remove item');
+    }
+  };
+
+  const { item: product, quantity } = cartItem;
 
   return (
     <div>

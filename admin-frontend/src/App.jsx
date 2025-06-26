@@ -15,6 +15,7 @@ import Profile from './pages/AdminDashBoard';
 import ProtectedAdminRoute from './components/ProtectedAdminRoute';
 import WishList from './pages/wishlist/WishList';
 import SignUp from './pages/SignUp';
+import { ToastContainer } from 'react-toastify';
 
 const router = createBrowserRouter(
   createRoutesFromChildren(
@@ -40,6 +41,11 @@ const router = createBrowserRouter(
 );
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <RouterProvider router={router} />
+      <ToastContainer />
+    </>
+  );
 }
 export default App;
