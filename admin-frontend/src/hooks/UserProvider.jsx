@@ -13,7 +13,6 @@ export const UserAuthProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      console.log('Fetching user data from /auth/me');
       try {
         setIsLoading(true);
         const res = await axios.get(`${API_URL}/auth/me`, {
@@ -22,7 +21,6 @@ export const UserAuthProvider = ({ children }) => {
             'Content-Type': 'application/json',
           },
         });
-        console.log('User data received:', res.data);
         setUser(res.data);
       } catch (err) {
         console.error('Error fetching user:', {

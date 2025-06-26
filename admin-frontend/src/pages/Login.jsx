@@ -10,8 +10,7 @@ import { useUser } from '@/hooks/UserProvider';
 
 function Login() {
   const navigate = useNavigate();
-  const { login, user } = useUser();
-  console.log(user);
+  const { login } = useUser();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
