@@ -30,7 +30,7 @@ export default function FoodCard({ item, imagePath }) {
       <CardContent className='p-4 flex flex-col flex-grow'>
         <div className='flex flex-col flex-grow space-y-2'>
           <div className='flex items-center justify-between gap-4 whitespace-nowrap overflow-hidden'>
-            <h3 className='font-semibold text-lg text-gray-900 group-hover:text-brand-600 transition-colors'>
+            <h3 className='font-semibold text-lg text-gray-900 transition-colors'>
               {item.name}
             </h3>
             <div className='flex items-center space-x-1 flex-shrink-0'>

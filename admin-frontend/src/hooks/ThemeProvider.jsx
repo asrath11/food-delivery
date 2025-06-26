@@ -1,3 +1,4 @@
+// components/theme-provider.jsx
 import { createContext, useContext, useEffect, useState } from 'react';
 
 const ThemeProviderContext = createContext({
@@ -9,11 +10,10 @@ export function ThemeProvider({
   children,
   defaultTheme = 'system',
   storageKey = 'vite-ui-theme',
-  ...props
 }) {
   const [theme, setTheme] = useState(() => {
     const storedTheme = localStorage.getItem(storageKey);
-    return storedTheme ? storedTheme : defaultTheme;
+    return storedTheme || defaultTheme;
   });
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export function ThemeProvider({
 
     let themeToApply = theme;
     if (theme === 'system') {
-      themeToApply = window.matchMedia('(prefers-color-scheme: dark)').matches
+      themeToApply = window.matchMedia('prefers-color-scheme: dark').matches
         ? 'dark'
         : 'light';
     }
@@ -39,18 +39,16 @@ export function ThemeProvider({
   };
 
   return (
-    <ThemeProviderContext.Provider {...props} value={value}>
+    <ThemeProviderContext.Provider value={value}>
       {children}
     </ThemeProviderContext.Provider>
   );
 }
 
-export const useTheme = () => {
+export function useTheme() {
   const context = useContext(ThemeProviderContext);
-
-  if (context === undefined) {
+  if (!context) {
     throw new Error('useTheme must be used within a ThemeProvider');
   }
-
   return context;
-};
+}
