@@ -29,7 +29,7 @@ function Login() {
           'Content-Type': 'multipart/form-data',
         },
       });
-      login(response.data.user);
+      login();
       navigate('/');
     } catch (error) {
       console.error('Login failed', error.response?.data || error.message);

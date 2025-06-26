@@ -31,7 +31,6 @@ function SignUp() {
           'Content-Type': 'multipart/form-data',
         },
       });
-
       login(response.data.user);
       navigate('/');
     } catch (error) {

@@ -10,35 +10,28 @@ export const UserAuthProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
   const navigate = useNavigate();
-
+  const fetchUser = async () => {
+    try {
+      setIsLoading(true);
+      const res = await axios.get(`${API_URL}/auth/me`, {
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      setUser(res.data);
+    } catch (err) {
+      setUser(null);
+    } finally {
+      setIsLoading(false);
+    }
+  };
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        setIsLoading(true);
-        const res = await axios.get(`${API_URL}/auth/me`, {
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-        setUser(res.data);
-      } catch (err) {
-        console.error('Error fetching user:', {
-          message: err.message,
-          response: err.response?.data,
-          status: err.response?.status,
-        });
-        setError(err.response?.data?.message || 'Failed to fetch user data');
-        setUser(null);
-      } finally {
-        setIsLoading(false);
-      }
-    };
     fetchUser();
   }, []);
 
-  const login = (userData) => {
-    setUser(userData);
+  const login = () => {
+    fetchUser();
     setIsLoading(false);
   };
 
