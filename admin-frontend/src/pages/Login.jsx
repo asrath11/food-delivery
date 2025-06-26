@@ -10,7 +10,8 @@ import { useUser } from '@/hooks/UserProvider';
 
 function Login() {
   const navigate = useNavigate();
-  const { login } = useUser();
+  const { login, user } = useUser();
+  console.log(user);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -29,7 +30,6 @@ function Login() {
           'Content-Type': 'multipart/form-data',
         },
       });
-
       login(response.data.user);
       navigate('/');
     } catch (error) {

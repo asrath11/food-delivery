@@ -51,7 +51,9 @@ function useFoodFilter() {
       const matchSearch =
         !debouncedSearchTerm ||
         item.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
-        item.description.toLowerCase().includes(debouncedSearchTerm.toLowerCase());
+        item.description
+          .toLowerCase()
+          .includes(debouncedSearchTerm.toLowerCase());
 
       const matchPrice =
         priceRange.length === 0 ||
@@ -119,17 +121,13 @@ function useFoodFilter() {
 
   const handlePriceChange = useCallback((range) => {
     setPriceRange((prev) =>
-      prev.includes(range)
-        ? prev.filter((r) => r !== range)
-        : [...prev, range]
+      prev.includes(range) ? prev.filter((r) => r !== range) : [...prev, range]
     );
   }, []);
 
   const handleDietaryChange = useCallback((filter) => {
     setDietaryFilter((prev) =>
-      prev.includes(filter)
-        ? prev.filter((f) => f !== filter)
-        : [...prev, filter]
+      prev.includes(filter) ? prev.filter((f) => f !== filter) : [...prev, filter]
     );
   }, []);
 

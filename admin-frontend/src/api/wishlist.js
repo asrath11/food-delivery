@@ -3,7 +3,7 @@ import { WISHLIST_URL } from '../constants/config';
 
 export const getItemsInWishList = async () => {
   try {
-    const res = await axios.get(WISHLIST_URL, {
+    const res = await axios.get(`${WISHLIST_URL}/`, {
       withCredentials: true,
     });
     const wishlist = res.data.wishlist;

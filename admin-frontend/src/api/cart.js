@@ -24,7 +24,7 @@ export const addItemToCart = async (item_id) => {
 // Get all items in cart
 export const getItemsInCart = async () => {
   try {
-    const res = await axios.get(CART_URL, {
+    const res = await axios.get(`${CART_URL}/`, {
       withCredentials: true,
     });
     const total = res.data.total;

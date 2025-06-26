@@ -13,14 +13,24 @@ export const UserAuthProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchUser = async () => {
+      console.log('Fetching user data from /auth/me');
       try {
         setIsLoading(true);
         const res = await axios.get(`${API_URL}/auth/me`, {
           withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+          },
         });
+        console.log('User data received:', res.data);
         setUser(res.data);
       } catch (err) {
-        setError(err.response?.data?.message || 'Something went wrong');
+        console.error('Error fetching user:', {
+          message: err.message,
+          response: err.response?.data,
+          status: err.response?.status,
+        });
+        setError(err.response?.data?.message || 'Failed to fetch user data');
         setUser(null);
       } finally {
         setIsLoading(false);
@@ -35,9 +45,13 @@ export const UserAuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
-    await axios.post(`${API_URL}/auth/logout`, {}, {
-      withCredentials: true,
-    });
+    await axios.post(
+      `${API_URL}/auth/logout`,
+      {},
+      {
+        withCredentials: true,
+      }
+    );
     setUser(null);
     setIsLoading(false);
     navigate('/');
