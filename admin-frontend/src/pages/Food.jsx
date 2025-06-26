@@ -1,6 +1,6 @@
 import React from 'react';
 import FoodCard from '@/components/food/FoodCard';
-import FilterSidebar from '@/components/food/FilterSidebar';
+import FilterSideBar from '@/components/food/FilterSideBar';
 import SortHeader from '@/components/food/SortByHeader';
 import useFoodFilter from '@/hooks/useFoodFilter';
 import { API_URL } from '@/constants/config';
@@ -41,7 +41,7 @@ function Food() {
 
         <div className='grid lg:grid-cols-4 gap-8'>
           <div className='lg:col-span-1'>
-            <FilterSidebar
+            <FilterSideBar
               searchTerm={searchTerm}
               setSearchTerm={setSearchTerm}
               selectedCategories={selectedCategories}
