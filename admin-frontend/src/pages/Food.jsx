@@ -1,6 +1,6 @@
 import React from 'react';
 import FoodCard from '@/components/food/FoodCard';
-import FilterSidebar from '@/components/food/FilterSidebar';
+import FilterSideBar from '@/components/food/FilterSidebar';
 import SortHeader from '@/components/food/SortByHeader';
 import useFoodFilter from '@/hooks/useFoodFilter';
 import { API_URL } from '@/constants/config';
