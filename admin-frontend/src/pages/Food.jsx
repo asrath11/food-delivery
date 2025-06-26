@@ -6,6 +6,7 @@ import useFoodFilter from '@/hooks/useFoodFilter';
 import { API_URL } from '@/constants/config';
 import { useCart } from '@/hooks/CartProvider';
 import { useWishList } from '@/hooks/WishListProvider';
+import { toast } from 'react-toastify';
 
 function Food() {
   const {
@@ -26,6 +27,14 @@ function Food() {
 
   const { addToCart } = useCart();
   const { addToWishlist } = useWishList();
+  const handleAddToCart = async (item_id) => {
+    try {
+      await addToCart(item_id);
+      toast.success('Added to cart!');
+    } catch (error) {
+      toast.error('Failed to add to cart');
+    }
+  };
   return (
     <div className='min-h-screen bg-background'>
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8'>
@@ -67,7 +76,7 @@ function Food() {
                   key={item.id}
                   item={item}
                   imagePath={`${API_URL}/${item.image}`}
-                  onAddToCart={() => addToCart(item.id)}
+                  onAddToCart={() => handleAddToCart(item.id)}
                   onAddToWishlist={() => addToWishlist(item.id)}
                 />
               ))}
