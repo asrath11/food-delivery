@@ -2,62 +2,57 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import axios from 'axios';
 import { ITEMS_URL } from '@/constants/config';
-import { useDebounce } from 'use-debounce'; // Import useDebounce
+import { useDebounce } from 'use-debounce';
 
 function useFoodFilter() {
   const [foodItems, setFoodItems] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  // Use useDebounce hook directly for the search term that affects filtering
-  const [debouncedSearchTerm] = useDebounce(searchTerm, 300); // Debounce for 300ms
+  const [debouncedSearchTerm] = useDebounce(searchTerm, 300);
 
   const [sortBy, setSortBy] = useState('popular');
   const [priceRange, setPriceRange] = useState([]);
   const [dietaryFilter, setDietaryFilter] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
 
-  // Effect to fetch all food items once when the component mounts
   useEffect(() => {
     const fetchFoodItems = async () => {
       try {
         const res = await axios.get(`${ITEMS_URL}`);
-        const rawItems = res.data.item || [];
+        const rawItems = Array.isArray(res.data?.item) ? res.data.item : [];
 
         const mapped = rawItems.map((item) => ({
-          id: item.id,
+          id: item.id ?? '',
           name: item.name || '',
           description: item.desc || '',
           price: item.price || 0,
-          image: item.image,
-          category: item.category,
-          popular: item.is_popular,
-          spicy: item.is_spicy,
-          vegetarian: item.is_vegetarian,
-          rating: 4.5, // Hardcoded, consider fetching actual ratings
-          reviews: 100, // Hardcoded, consider fetching actual reviews
+          image: item.image || '',
+          category: item.category || '',
+          popular: Boolean(item.is_popular),
+          spicy: Boolean(item.is_spicy),
+          vegetarian: Boolean(item.is_vegetarian),
+          rating: 4.5,
+          reviews: 100,
         }));
 
         setFoodItems(mapped);
       } catch (err) {
         console.error('Error fetching food items:', err);
-        setFoodItems([]); // Set to empty array on error
+        setFoodItems([]);
       }
     };
 
     fetchFoodItems();
-  }, []); // Empty dependency array ensures this runs only once on mount
+  }, []);
 
-  // Memoized filtered items based on debounced search term and other filters
   const filteredItems = useMemo(() => {
+    if (!Array.isArray(foodItems)) return [];
+
     return foodItems.filter((item) => {
-      // 1. Match Search Term (using debounced term)
       const matchSearch =
         !debouncedSearchTerm ||
         item.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
-        item.description
-          .toLowerCase()
-          .includes(debouncedSearchTerm.toLowerCase());
+        item.description.toLowerCase().includes(debouncedSearchTerm.toLowerCase());
 
-      // 2. Match Price Range
       const matchPrice =
         priceRange.length === 0 ||
         priceRange.some((range) => {
@@ -71,25 +66,21 @@ function useFoodFilter() {
             case 'over-200':
               return item.price > 200;
             default:
-              return true; // Should not happen if priceRanges are well-defined
+              return true;
           }
         });
 
-      // 3. Match Dietary Options
       const matchDietary =
         dietaryFilter.length === 0 ||
         dietaryFilter.every((filter) => {
-          // 'every' ensures ALL selected filters match
           if (filter === 'vegetarian') return item.vegetarian;
           if (filter === 'spicy') return item.spicy;
-          // Add more dietary checks here if needed (e.g., if (filter === 'vegan') return item.is_vegan;)
-          return true; // If filter is not one of the specific checks
+          return true;
         });
 
-      // 4. Match Categories
       const matchCategory =
         selectedCategories.length === 0 ||
-        selectedCategories.includes(item.category); // Assuming item.category is already lowercase
+        selectedCategories.includes(item.category);
 
       return matchSearch && matchPrice && matchDietary && matchCategory;
     });
@@ -101,42 +92,44 @@ function useFoodFilter() {
     foodItems,
   ]);
 
-  // Memoized sorted and filtered items
   const sortedAndFilteredItems = useMemo(() => {
-    const items = [...filteredItems]; // Create a shallow copy to avoid mutating original array
+    const items = [...filteredItems];
+
     switch (sortBy) {
       case 'popular':
-        // Sorts popular items first, then others (stable sort not guaranteed by default sort)
         return items.sort((a, b) => (b.popular ? 1 : 0) - (a.popular ? 1 : 0));
       case 'rating':
-        return items.sort((a, b) => b.rating - a.rating); // High to Low
+        return items.sort((a, b) => b.rating - a.rating);
       case 'price-low':
-        return items.sort((a, b) => a.price - b.price); // Low to High
+        return items.sort((a, b) => a.price - b.price);
       case 'price-high':
-        return items.sort((a, b) => b.price - a.price); // High to Low
+        return items.sort((a, b) => b.price - a.price);
       default:
         return items;
     }
-  }, [filteredItems, sortBy]); // Recalculate if filteredItems or sortBy changes
+  }, [filteredItems, sortBy]);
 
-  // Handlers for state updates, wrapped in useCallback for referential stability
   const handleCategoryChange = useCallback((category) => {
     setSelectedCategories((prev) =>
       prev.includes(category)
         ? prev.filter((c) => c !== category)
         : [...prev, category]
     );
-  }, []); // Empty dependency array means this function reference won't change
+  }, []);
 
   const handlePriceChange = useCallback((range) => {
     setPriceRange((prev) =>
-      prev.includes(range) ? prev.filter((r) => r !== range) : [...prev, range]
+      prev.includes(range)
+        ? prev.filter((r) => r !== range)
+        : [...prev, range]
     );
   }, []);
 
   const handleDietaryChange = useCallback((filter) => {
     setDietaryFilter((prev) =>
-      prev.includes(filter) ? prev.filter((f) => f !== filter) : [...prev, filter]
+      prev.includes(filter)
+        ? prev.filter((f) => f !== filter)
+        : [...prev, filter]
     );
   }, []);
 
@@ -153,10 +146,10 @@ function useFoodFilter() {
   }, []);
 
   return {
-    foodItems, // All fetched items
-    sortedAndFilteredItems, // Items ready for display
-    searchTerm, // Immediate search term for input value
-    setSearchTerm, // Setter for immediate search term
+    foodItems,
+    sortedAndFilteredItems,
+    searchTerm,
+    setSearchTerm,
     selectedCategories,
     handleCategoryChange,
     priceRange,
