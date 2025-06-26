@@ -34,10 +34,12 @@ def create_app():
     app.config["JWT_SECRET_KEY"] = setting.jwt_access_secret
     # Enable JWT in cookies
     app.config["JWT_TOKEN_LOCATION"] = ["cookies","headers"]
-    app.config["JWT_COOKIE_SECURE"] = False  # True in production with HTTPS
+    app.config["JWT_COOKIE_SECURE"] = True  # True in production with HTTPS
     app.config["JWT_ACCESS_COOKIE_PATH"] = "/"
     app.config["JWT_COOKIE_CSRF_PROTECT"] = False  # Optional: disable CSRF for dev
     app.config["JWT_SESSION_COOKIE"] = False
+    app.config['JWT_COOKIE_SAMESITE'] = 'None'
+    app.config["JWT_ACCESS_COOKIE_HTTPONLY"] = True
 
     # Fix expiration config
     app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(days=15)

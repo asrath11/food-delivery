@@ -72,11 +72,21 @@ def login_user():
 @auth_bp.route('/me', methods=["GET"])
 @jwt_required()
 def get_me():
-    email = get_jwt_identity()
-    current_user = User.query.filter_by(email=email).first()
-    if not current_user:
-        return jsonify({"message": "User not found"}), 404
-    return jsonify(current_user.to_dict()), 200
+    try:
+        
+        # Get the identity from the token
+        email = get_jwt_identity()
+        
+        # Query the user
+        current_user = User.query.filter_by(email=email).first()        
+        if not current_user:
+            return jsonify({"message": "User not found"}), 404
+            
+        user_data = current_user.to_dict()
+        return jsonify(user_data), 200
+        
+    except Exception as e:
+        return jsonify({"message": "Error processing request"}), 500
 
 @auth_bp.route('/logout', methods=["POST"])
 def logout():
