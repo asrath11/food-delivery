@@ -36,7 +36,7 @@ export const fetchItems = async () => {
 
 export const fetchItemsNames = async () => {
   try {
-    const res = await axios.get(`${ITEMS_URL}/names`, {
+    const res = await axios.get(`${ITEMS_URL}names`, {
       withCredentials: true,
     });
     return res?.data?.item_names;
@@ -51,7 +51,7 @@ export const fetchItemsNames = async () => {
 
 export const fetchItemsByName = async (name) => {
   try {
-    const res = await axios.get(`${ITEMS_URL}/search/${name}`, {
+    const res = await axios.get(`${ITEMS_URL}search/${name}`, {
       withCredentials: true,
     });
     return res?.data?.items;
