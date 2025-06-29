@@ -15,7 +15,6 @@ function FoodCard({
 }) {
   const { wishListData, addToWishList, removeFromWishList } = useWishList();
   const [isWishlisted, setIsWishlisted] = useState(false);
-
   // Check if item is in wishlist when component mounts
   useEffect(() => {
     if (wishListData?.wishlist) {
@@ -92,7 +91,7 @@ function FoodCard({
           </div>
 
           <p className='text-sm text-gray-600 line-clamp-3 flex-grow'>
-            {item.description}
+            {item.desc}
           </p>
 
           <div className='mt-auto'>
@@ -103,9 +102,7 @@ function FoodCard({
             </div>
 
             <div className='flex items-center justify-between pt-2 border-t border-gray-400'>
-              <div className='text-lg font-semibold'>
-                ₹{item?.price.toFixed(2)}
-              </div>
+              <div className='text-lg font-semibold'>₹{item?.price}</div>
 
               <Button
                 size='sm'

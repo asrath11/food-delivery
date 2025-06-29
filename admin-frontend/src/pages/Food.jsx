@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import FoodCard from '@/components/food/FoodCard';
 import FilterSideBar from '@/components/food/FilterSideBar';
 import SortHeader from '@/components/food/SortByHeader';
@@ -7,10 +7,16 @@ import { API_URL } from '@/constants/config';
 import { useCart } from '@/hooks/CartProvider';
 import { useWishList } from '@/hooks/WishListProvider';
 import { toast } from 'react-toastify';
+import { useSearchParams } from 'react-router-dom';
+import { fetchItemsByName } from '@/api/item';
 
 function Food() {
+  const [searchParams] = useSearchParams();
+  const urlSearchTerm = searchParams.get('search') || '';
+
   const {
     foodItems,
+    setFoodItems,
     sortedAndFilteredItems,
     searchTerm,
     setSearchTerm,
@@ -27,6 +33,23 @@ function Food() {
 
   const { addToCart } = useCart();
   const { addToWishlist } = useWishList();
+
+  useEffect(() => {
+    async function fetchData() {
+      if (!urlSearchTerm) return;
+      try {
+        const res = await fetchItemsByName(urlSearchTerm.toLowerCase());
+        if (Array.isArray(res)) {
+          setFoodItems(res); // ✅ Override with search result
+        }
+      } catch (err) {
+        console.error('Failed to fetch search results:', err);
+        setFoodItems([]);
+      }
+    }
+    fetchData();
+  }, [urlSearchTerm, setFoodItems]);
+
   const handleAddToCart = async (item_id) => {
     try {
       await addToCart(item_id);
@@ -35,6 +58,7 @@ function Food() {
       toast.error('Failed to add to cart');
     }
   };
+
   return (
     <div className='min-h-screen bg-background'>
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8'>

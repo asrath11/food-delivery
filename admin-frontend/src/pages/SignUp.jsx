@@ -25,13 +25,13 @@ function SignUp() {
     form.append('email', formData.email);
     form.append('password', formData.password);
     try {
-      const response = await axios.post(SIGNUP_URL, form, {
+      await axios.post(SIGNUP_URL, form, {
         withCredentials: true,
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
-      login(response.data.user);
+      login();
       navigate('/');
     } catch (error) {
       console.error('Signup failed', error.response?.data || error.message);

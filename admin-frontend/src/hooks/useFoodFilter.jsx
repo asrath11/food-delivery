@@ -50,10 +50,7 @@ function useFoodFilter() {
     return foodItems.filter((item) => {
       const matchSearch =
         !debouncedSearchTerm ||
-        item.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
-        item.description
-          .toLowerCase()
-          .includes(debouncedSearchTerm.toLowerCase());
+        item.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase());
 
       const matchPrice =
         priceRange.length === 0 ||
@@ -145,6 +142,7 @@ function useFoodFilter() {
 
   return {
     foodItems,
+    setFoodItems,
     sortedAndFilteredItems,
     searchTerm,
     setSearchTerm,
