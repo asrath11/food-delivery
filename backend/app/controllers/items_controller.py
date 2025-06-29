@@ -21,6 +21,23 @@ def get_all_items():
     items_data = [item.to_dict() for item in items]
     return jsonify({"results": len(items_data), "item": items_data}), 200
 
+@items_bp.get('/names')
+def get_all_item_names():
+    items = Item.query.all()
+    if not items:
+        return jsonify({"message": "There are no items at the moment", "items": []}), 200
+    item_names = [item.name.title() for item in items]
+    return jsonify({"results": len(item_names), "item_names": item_names}), 200
+
+
+@items_bp.get("/search/<name>")
+def search_items_by_name(name):
+    if not name:
+        return jsonify({"status": "failed", "message": "Please provide a name"}), 400
+    items = Item.query.filter(Item.name.ilike(f"%{name}%")).all()
+    if not items:
+        return jsonify({"status": "failed", "items": []}), 200
+    return jsonify({"status": "success", "items": [item.to_dict() for item in items]}), 200
 
 @items_bp.get("/<itemId>")
 def get_items_by_id(itemId):
