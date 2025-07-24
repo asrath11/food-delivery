@@ -2,7 +2,7 @@ import { useUser } from '@/hooks/UserProvider';
 import { useCart } from '@/hooks/CartProvider';
 import LoginPrompt from '../LoginPrompt';
 import CartList from '@/components/cart/CartList';
-import CartSummary from './CartSummary';
+import CartSummary from '../../components/cart/CartSummary';
 
 function Cart() {
   const { user, isLoading: userLoading } = useUser();

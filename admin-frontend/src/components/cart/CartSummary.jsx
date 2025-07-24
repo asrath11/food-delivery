@@ -1,8 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
+import { createOrder } from '@/api/order';
+import { useUser } from '@/hooks/UserProvider';
 
 function CartSummary({ cartData }) {
   const [isInitialLoading, setIsInitialLoading] = useState(true);
+  const { user } = useUser();
+  const handleCheckout = async () => {
+    const orderResponse = await createOrder(cartData.total);
+    const orderData = orderResponse.order;
+
+    const options = {
+      key: import.meta.env.VITE_RAZORPAY_KEY,
+      order_id: orderData.id,
+      amount: orderData.amount,
+      currency: 'INR',
+      name: 'Food Delivery',
+      description: 'Order',
+      image: 'https://example.com/logo.png',
+      // handler: function (response) {
+      //   console.log(response);
+      // },
+      prefill: {
+        name: user.name,
+        email: user.email,
+        contact: user.phone || '',
+      },
+    };
+    const rzp1 = new window.Razorpay(options);
+    rzp1.open();
+  };
 
   // Set initial loading to false after first render
   useEffect(() => {
@@ -50,7 +77,10 @@ function CartSummary({ cartData }) {
           <p>₹{cartData.total}</p>
         </div>
 
-        <Button className='w-full bg-primary hover:bg-primary/90 hover:text-primary-foreground cursor-pointer mt-4 sm:mt-6 h-12 text-base font-semibold'>
+        <Button
+          className='w-full bg-primary hover:bg-primary/90 hover:text-primary-foreground cursor-pointer mt-4 sm:mt-6 h-12 text-base font-semibold'
+          onClick={handleCheckout}
+        >
           Proceed to Checkout
         </Button>
       </div>
