@@ -1,11 +1,10 @@
 import os
 from dotenv import load_dotenv
-from flask import Flask,send_from_directory,jsonify
+from flask import Flask,send_from_directory
 from flask_jwt_extended import JWTManager
 from flask_bcrypt import Bcrypt
 from flask_migrate import Migrate
 from flask_cors import CORS
-from werkzeug.exceptions import RequestEntityTooLarge
 
 from app.models import db
 from app.controllers.cart_controller import cart_bp
@@ -13,6 +12,7 @@ from app.controllers.user_controller import users_bp
 from app.controllers.items_controller import items_bp
 from app.controllers.auth_controller import auth_bp
 from app.controllers.wishlist_controller import wishlist_bp
+from app.controllers.orders_controller import orders_bp
 from config import setting
 from datetime import timedelta
 
@@ -61,7 +61,7 @@ def create_app():
     app.register_blueprint(auth_bp, url_prefix="/auth")
     app.register_blueprint(cart_bp, url_prefix="/cart")
     app.register_blueprint(wishlist_bp, url_prefix="/wishlist")
-
+    app.register_blueprint(orders_bp, url_prefix="/orders")
     @app.route('/uploads/<filename>')
     def uploaded_file(filename):
         return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
