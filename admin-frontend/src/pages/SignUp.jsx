@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/label';
 import { SIGNUP_URL } from '@/constants/config';
 import axios from 'axios';
 import { useUser } from '@/hooks/UserProvider';
+import { toast } from 'react-toastify';
 
 function SignUp() {
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ function SignUp() {
       login();
       navigate('/');
     } catch (error) {
-      console.error('Signup failed', error.response?.data || error.message);
+      toast.error(error.response?.data?.message || error.message);
     }
   };
 

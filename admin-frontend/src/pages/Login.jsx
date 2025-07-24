@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/label';
 import { LOGIN_URL } from '@/constants/config';
 import axios from 'axios';
 import { useUser } from '@/hooks/UserProvider';
+import { toast } from 'react-toastify';
 
 function Login() {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ function Login() {
     form.append('email', formData.email);
     form.append('password', formData.password);
     try {
-      const response = await axios.post(LOGIN_URL, form, {
+      await axios.post(LOGIN_URL, form, {
         withCredentials: true,
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -32,7 +33,7 @@ function Login() {
       login();
       navigate('/');
     } catch (error) {
-      console.error('Login failed', error.response?.data || error.message);
+      toast.error(error.response?.data?.message || error.message);
     }
   };
 
