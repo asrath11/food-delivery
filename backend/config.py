@@ -18,4 +18,5 @@ class Settings(BaseSettings):
 
 
 setting = Settings()
-
+print(setting.razorpay_key_id)
+print(setting.razorpay_key_secret)
