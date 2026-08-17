@@ -1,14 +1,14 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { User } from 'lucide-react';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { User } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from '../ui/dropdown-menu';
-import { Button } from '../ui/button';
-import { useUser } from '@/hooks/UserProvider';
+} from "../ui/dropdown-menu";
+import { Button } from "../ui/button";
+import { useUser } from "@/hooks/UserProvider";
 function ProfileDropDown() {
   const navigate = useNavigate();
   const { user, logout } = useUser();
@@ -16,26 +16,26 @@ function ProfileDropDown() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant='ghost' size='sm' className='p-2'>
-          <User className='size-5' />
+        <Button variant="ghost" size="sm" className="p-2">
+          <User className="size-5" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         {user ? (
           <>
-            <DropdownMenuItem onClick={() => navigate('/admin')}>
-            Dash Board
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={logout}>
-            Logout
-            </DropdownMenuItem>
+            {user.role === "admin" && (
+              <DropdownMenuItem onClick={() => navigate("/admin")}>
+                Dash Board
+              </DropdownMenuItem>
+            )}
+            <DropdownMenuItem onClick={logout}>Logout</DropdownMenuItem>
           </>
         ) : (
           <>
-            <DropdownMenuItem onClick={() => navigate('/login')}>
+            <DropdownMenuItem onClick={() => navigate("/login")}>
               Login
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => navigate('/signup')}>
+            <DropdownMenuItem onClick={() => navigate("/signup")}>
               Signup
             </DropdownMenuItem>
           </>
