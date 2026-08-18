@@ -20,6 +20,7 @@ const categories = [
   {
     name: 'Chinese',
     icon: '🥡',
+    color: 'bg-orange-50 border-orange-100',
   },
   {
     name: 'Italian',
