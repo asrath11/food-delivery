@@ -5,49 +5,40 @@ const categories = [
   {
     name: 'Pizza',
     icon: '🍕',
-    count: '150+ places',
     color: 'bg-red-50 border-red-100',
   },
   {
     name: 'Burgers',
     icon: '🍔',
-    count: '120+ places',
     color: 'bg-yellow-50 border-yellow-100',
   },
   {
     name: 'Sushi',
     icon: '🍣',
-    count: '80+ places',
     color: 'bg-green-50 border-green-100',
   },
   {
     name: 'Chinese',
     icon: '🥡',
-    count: '200+ places',
-    color: 'bg-orange-50 border-orange-100',
   },
   {
     name: 'Italian',
     icon: '🍝',
-    count: '90+ places',
     color: 'bg-purple-50 border-purple-100',
   },
   {
     name: 'Mexican',
     icon: '🌮',
-    count: '110+ places',
     color: 'bg-pink-50 border-pink-100',
   },
   {
     name: 'Indian',
     icon: '🍛',
-    count: '75+ places',
     color: 'bg-blue-50 border-blue-100',
   },
   {
     name: 'Desserts',
     icon: '🍰',
-    count: '60+ places',
     color: 'bg-indigo-50 border-indigo-100',
   },
 ];
