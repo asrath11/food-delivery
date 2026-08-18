@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { PasswordInput } from '@/components/ui/password-input';
 import { Label } from '@/components/ui/label';
 import { SIGNUP_URL } from '@/constants/config';
 import axios from 'axios';
@@ -83,9 +84,8 @@ function SignUp() {
             <Label htmlFor='password' className='text-foreground'>
               Password
             </Label>
-            <Input
+            <PasswordInput
               id='password'
-              type='password'
               placeholder='Enter your password'
               className='bg-card border-border text-foreground placeholder:text-muted-foreground'
               value={formData.password}

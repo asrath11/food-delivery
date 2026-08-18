@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'; // add this
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { PasswordInput } from '@/components/ui/password-input';
 import { Label } from '@/components/ui/label';
 import { LOGIN_URL } from '@/constants/config';
 import axios from 'axios';
@@ -64,9 +65,8 @@ function Login() {
             <Label htmlFor='password' className='text-foreground'>
               Password
             </Label>
-            <Input
+            <PasswordInput
               id='password'
-              type='password'
               placeholder='Enter your password'
               className='bg-card border-border text-foreground placeholder:text-muted-foreground'
               value={formData.password}

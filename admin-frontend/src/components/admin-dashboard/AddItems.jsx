@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
+import { Checkbox } from '../ui/checkbox';
+import { Label } from '../ui/label';
 import { createItem } from '@/api/item';
 
 function AddItems() {
@@ -10,6 +12,8 @@ function AddItems() {
     description: '',
     category: '',
     image: null,
+    is_spicy: false,
+    is_vegetarian: false,
   });
 
   const handleChange = (e) => {
@@ -17,6 +21,13 @@ function AddItems() {
     setFormData((prev) => ({
       ...prev,
       [name]: type === 'file' ? files[0] : value,
+    }));
+  };
+
+  const handleCheckboxChange = (name, checked) => {
+    setFormData((prev) => ({
+      ...prev,
+      [name]: checked,
     }));
   };
 
@@ -29,6 +40,8 @@ function AddItems() {
     form.append('desc', formData.description);
     form.append('category', formData.category);
     form.append('image', formData.image);
+    form.append('is_spicy', formData.is_spicy);
+    form.append('is_vegetarian', formData.is_vegetarian);
     await createItem(form);
   };
 
@@ -65,6 +78,25 @@ function AddItems() {
         onChange={handleChange}
       />
       <Input type='file' name='image' onChange={handleChange} />
+
+      <div className='flex items-center gap-4'>
+        <div className='flex items-center space-x-2'>
+          <Checkbox
+            id='is_spicy'
+            checked={formData.is_spicy}
+            onCheckedChange={(checked) => handleCheckboxChange('is_spicy', checked)}
+          />
+          <Label htmlFor='is_spicy' className='cursor-pointer'>Spicy</Label>
+        </div>
+        <div className='flex items-center space-x-2'>
+          <Checkbox
+            id='is_vegetarian'
+            checked={formData.is_vegetarian}
+            onCheckedChange={(checked) => handleCheckboxChange('is_vegetarian', checked)}
+          />
+          <Label htmlFor='is_vegetarian' className='cursor-pointer'>Vegetarian</Label>
+        </div>
+      </div>
 
       <Button className='bg-primary text-white'>Add Item</Button>
     </form>

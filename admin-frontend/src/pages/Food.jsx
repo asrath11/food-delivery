@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import FoodCard from '@/components/food/FoodCard';
 import FilterSideBar from '@/components/food/FilterSideBar';
 import SortHeader from '@/components/food/SortByHeader';
@@ -8,7 +8,6 @@ import { useCart } from '@/hooks/CartProvider';
 import { useWishList } from '@/hooks/WishListProvider';
 import { toast } from 'react-toastify';
 import { useSearchParams } from 'react-router-dom';
-import { fetchItemsByName } from '@/api/item';
 
 function Food() {
   const [searchParams] = useSearchParams();
@@ -16,7 +15,6 @@ function Food() {
 
   const {
     foodItems,
-    setFoodItems,
     sortedAndFilteredItems,
     searchTerm,
     setSearchTerm,
@@ -29,26 +27,10 @@ function Food() {
     clearAllFilters,
     sortBy,
     handleSortChange,
-  } = useFoodFilter();
+  } = useFoodFilter(urlSearchTerm);
 
   const { addToCart } = useCart();
   const { addToWishlist } = useWishList();
-
-  useEffect(() => {
-    async function fetchData() {
-      if (!urlSearchTerm) return;
-      try {
-        const res = await fetchItemsByName(urlSearchTerm.toLowerCase());
-        if (Array.isArray(res)) {
-          setFoodItems(res); // ✅ Override with search result
-        }
-      } catch (err) {
-        console.error('Failed to fetch search results:', err);
-        setFoodItems([]);
-      }
-    }
-    fetchData();
-  }, [urlSearchTerm, setFoodItems]);
 
   const handleAddToCart = async (item_id) => {
     try {

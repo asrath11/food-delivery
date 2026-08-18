@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Star, Heart, Plus, X } from 'lucide-react';
+import { Star, Heart, Plus, X, Flame, Leaf } from 'lucide-react';
 import { useWishList } from '@/hooks/WishListProvider';
 
 function FoodCard({
@@ -95,10 +95,22 @@ function FoodCard({
           </p>
 
           <div className='mt-auto'>
-            <div className='flex items-center justify-between text-sm mb-2'>
+            <div className='flex items-center gap-2 text-sm mb-2 flex-wrap'>
               <Badge variant='outline' className='text-xs'>
                 {item.category}
               </Badge>
+              {item.is_spicy && (
+                <Badge variant='destructive' className='text-xs'>
+                  <Flame className='h-3 w-3 mr-1' />
+                  Spicy
+                </Badge>
+              )}
+              {item.is_vegetarian && (
+                <Badge variant='secondary' className='text-xs bg-green-100 text-green-800'>
+                  <Leaf className='h-3 w-3 mr-1' />
+                  Vegetarian
+                </Badge>
+              )}
             </div>
 
             <div className='flex items-center justify-between pt-2 border-t border-gray-400'>

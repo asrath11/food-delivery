@@ -63,3 +63,18 @@ export const fetchItemsByName = async (name) => {
     throw error; // Let the calling function handle the error
   }
 };
+
+export const deleteItem = async (itemId) => {
+  try {
+    const res = await axios.delete(`${ITEMS_URL}${itemId}`, {
+      withCredentials: true,
+    });
+    return res.data;
+  } catch (error) {
+    console.error(
+      'Failed to delete item:',
+      error.response?.data || error.message
+    );
+    throw error;
+  }
+};
