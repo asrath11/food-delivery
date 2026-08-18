@@ -28,9 +28,6 @@ function HeroSection() {
         <div className='grid lg:grid-cols-2 gap-12 items-center'>
           <div className='space-y-8'>
             <div className='space-y-4'>
-              <Badge className='bg-white/20 text-white border-white/30 hover:bg-white/30'>
-                🎉 Free delivery on orders over $30
-              </Badge>
               <h1 className='text-4xl md:text-5xl lg:text-6xl font-display font-bold leading-tight'>
                 Your favorite food,{' '}
                 <span className='text-black'>delivered fast</span>
